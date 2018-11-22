@@ -10,6 +10,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * 配置
+ *
  * @author admin
  * @date 2018-11-20 15:25
  */
@@ -24,4 +25,28 @@ public class SystemLogAutoConfiguration {
     public SystemLogAspect systemLogAspect() {
         return new SystemLogAspect();
     }
+
+    /**
+     *  TODO @ConditionalOnMissingBean 仅当 BeanFactory 中不包含指定的 bean class 和/或 name 时条件匹配
+     *  该条件只能匹配到目前为止 application context 已经处理的 bean 定义，因此强烈建议仅在自动配置类上使用此条件。
+     *
+     */
+
+
+    /**
+     * TODO @ConditionalOnClass
+     *
+     */
+
+    /**
+     * TODO @EnableAspectJAutoProxy
+     *
+     *
+     */
+
+    /**
+     * TODO @AutoConfigureOrder
+     *
+     *
+     */
 }
