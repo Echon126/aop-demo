@@ -105,5 +105,38 @@
         </plugins>
     </build>
 
+    <!--<profiles>
+        <profile>
+            &lt;!&ndash; 开发环境 &ndash;&gt;
+            <id>development</id>
+            <properties>
+                <environment>development</environment> &lt;!&ndash; 节点名字environment随意 用于下方指定 &ndash;&gt;
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault> &lt;!&ndash; 默认激活该profile节点&ndash;&gt;
+            </activation>
+        </profile>
+        <profile>
+            &lt;!&ndash; 测试环境 &ndash;&gt;
+            <id>test</id>
+            <properties>
+                <environment>test</environment>
+            </properties>
+        </profile>
+        <profile>
+            &lt;!&ndash; 预演环境 &ndash;&gt;
+            <id>preview</id>
+            <properties>
+                <environment>preview</environment>
+            </properties>
+        </profile>
+        <profile>
+            &lt;!&ndash; 生产环境 &ndash;&gt;
+            <id>production</id>
+            <properties>
+                <environment>production</environment>
+            </properties>
+        </profile>
+    </profiles>-->
 
 </project>

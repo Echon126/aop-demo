@@ -1,9 +1,11 @@
 package com.wen.aop.example;
 
+import com.wen.aop.example.service.OrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -58,4 +60,14 @@ public class ApplicationTests {
         }
     }
 
+    @Autowired
+    OrderService orderService;
+
+    @Test
+    public void testOrderService() throws InterruptedException {
+        for (int i = 0; i < 20; i++) {
+            orderService.getOrder();
+            System.out.println("等待休眠");
+        }
+    }
 }
