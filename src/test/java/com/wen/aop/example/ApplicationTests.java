@@ -1,5 +1,6 @@
 package com.wen.aop.example;
 
+import com.wen.aop.example.entity.ResponseData;
 import com.wen.aop.example.service.OrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +12,14 @@ import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.expression.ParseException;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestTemplate;
 
 import javax.naming.NamingException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -69,5 +74,29 @@ public class ApplicationTests {
             orderService.getOrder();
             System.out.println("等待休眠");
         }
+    }
+
+
+    private static final String url = "http://localhost:8089/";
+
+
+    @Autowired
+    RestTemplate restTemplate;
+
+    @Test
+    public void testResmplate() {
+        ResponseData responseData = new ResponseData("200","调用成功",new Date());
+        String message = this.restTemplate.postForObject(url + "entity", responseData, String.class);
+        logger.info("调用返回值信息" + message);
+    }
+
+    @Test
+    public void testMap(){
+        Map<String, Object> hashMap = new HashMap<String, Object>();
+        hashMap.put("name","zhangsan");
+        hashMap.put("age","18");
+        ResponseData responseData = new ResponseData("200","调用成功",new Date());
+        String message = this.restTemplate.postForObject(url+"map",responseData,String.class);
+        logger.info("调用返回信息"+message);
     }
 }
