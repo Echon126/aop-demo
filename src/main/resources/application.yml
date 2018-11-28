@@ -3,11 +3,11 @@ server:
 
 #spring的配置
 spring:
-  aop:
-    auto: false
-    #### 该属性的值决定是基于接口还是基于类的代理被创建(需要cglib库)
-    ### true基于类的代理将被起作用，false基于JDK接口的代理
-    proxy-target-class: true
+#  aop:
+#    auto: false
+#    #### 该属性的值决定是基于接口还是基于类的代理被创建(需要cglib库)
+#    ### true基于类的代理将被起作用，false基于JDK接口的代理
+#    proxy-target-class: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -29,6 +29,8 @@ spring:
     username: root
     password: newpassword
 
-
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
 logging:
   config: classpath:config/logback-spring.xml

@@ -1,8 +1,7 @@
-package com.wen.aop.example.remote;
+package com.wen.aop.example.controller.remote;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wen.aop.example.entity.RemoteDate;
-import com.wen.aop.example.entity.ResponseData;
+import com.wen.aop.example.data.entity.ResponseData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

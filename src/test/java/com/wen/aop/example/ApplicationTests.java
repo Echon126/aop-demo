@@ -1,6 +1,6 @@
 package com.wen.aop.example;
 
-import com.wen.aop.example.entity.ResponseData;
+import com.wen.aop.example.data.entity.ResponseData;
 import com.wen.aop.example.service.OrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

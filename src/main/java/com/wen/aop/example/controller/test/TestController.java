@@ -1,4 +1,4 @@
-package com.wen.aop.example.controller;
+package com.wen.aop.example.controller.test;
 
 import com.wen.aop.example.service.OrderService;
 import com.wen.aop.example.utils.Path;

@@ -2,7 +2,7 @@ package com.wen.aop.example.aop;
 
 import com.wen.aop.example.annotation.SystemControllerLog;
 import com.wen.aop.example.annotation.SystemServiceLog;
-import com.wen.aop.example.entity.SystemLogStrategy;
+import com.wen.aop.example.data.entity.SystemLogStrategy;
 import com.wen.aop.example.utils.JsonUtil;
 import com.wen.aop.example.utils.ThreadUtil;
 import org.aspectj.lang.ProceedingJoinPoint;

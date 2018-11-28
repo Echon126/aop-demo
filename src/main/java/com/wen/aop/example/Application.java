@@ -1,21 +1,15 @@
 package com.wen.aop.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-
 @SpringBootApplication
-/*@EnableAutoConfiguration*/
+@EnableAutoConfiguration
 public class Application {
     //启动的时候注意，由于我们在controller中注入了RestTemplate所以启动的时候需要实例化一个该对象的实例
     @Autowired
@@ -32,7 +26,7 @@ public class Application {
     }
 
     //查看springboot在启动的时候为我们注入了哪些bean
-    @Bean
+    /*@Bean
     public CommandLineRunner commandLineRunner(ApplicationContext context) {
         return args -> {
 
@@ -46,5 +40,5 @@ public class Application {
 
         };
 
-    }
+    }*/
 }

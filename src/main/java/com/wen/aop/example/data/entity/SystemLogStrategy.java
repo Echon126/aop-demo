@@ -1,4 +1,4 @@
-package com.wen.aop.example.entity;
+package com.wen.aop.example.data.entity;
 
 import lombok.Data;
 

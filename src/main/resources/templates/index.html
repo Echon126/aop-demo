@@ -1,97 +1,184 @@
-<!--
-* 场景:不刷新页面，对页面的局部内容进行更改
-*方案1：ajax 方法
-*方案2：哈希（hash）路由原理
-*方案2讲解：监听浏览器的url中的hash（url的#后面的文本——锚文本）值，进行更改内容
--->
 <!DOCTYPE html>
-<html lang="cn">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>js原生页面hash路由</title>
-    <style>
-        ul {
-            float: left;
-            width: 200px;
-        }
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/lib/gentelella/images/favicon.ico" type="image/ico"/>
 
-        li {
-            list-style: none;
-            padding: 8px 15px;
-            background: #B9CBF7;
-            text-align: center;
-        }
+    <title>Gentelella Alela! | </title>
 
-        a {
-            color: #86FF00;
-        }
+    <!-- Bootstrap -->
+    <link href="/lib/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css"
+          th:src="@{/lib/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/lib/gentelella/vendors/font-awesome/css/font-awesome.min.css"
+          th:src="@{/lib/gentelella/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/lib/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="/lib/gentelella/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
-        #result {
-            height: 200px;
-            margin-left: 200px;
-            line-height: 200px;
-            font-size: 30px;
-            text-align: center;
-            color: #D64BD3;
-        }
-    </style>
+    <!-- bootstrap-progressbar -->
+    <link href="/lib/gentelella/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="/lib/gentelella/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="/lib/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/lib/gentelella/build/css/custom.min.css" rel="stylesheet">
 </head>
-<body>
-<div class="container">
-    <ul>
-        <li><a href="#/">首页</a></li>
-        <li><a href="#/product">产品</a></li>
-        <li><a href="#/server">服务</a></li>
-    </ul>
-    <div id="result"></div>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="#/main" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="/lib/gentelella/images/img.jpg" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>John Doe</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br/>
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>General</h3>
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="#/main">Dashboard</a></li>
+                                    <li><a href="#/page/home/index3">Dashboard2</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="#/page/forms/form">General Form</a></li>
+                                   <!-- <li><a href="#/">Advanced Components</a></li>-->
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-desktop"></i> UI Elements <span
+                                    class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="#/page/elements/general_elements">General Elements</a></li>
+                                    <li><a href="#/page/elements/media_gallery">Media Gallery</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <div th:replace="fragments/menufooter::html" ></div>
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div th:replace="fragments/top::html" ></div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main" id="main">
+            <!---右侧主页面内容区域--->
+            <!--<div th:replace="fragments/main::html" ></div>-->
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <div th:replace="fragments/foot::html" ></div>
+        <!-- /footer content -->
+    </div>
 </div>
-<script>
-    //路由构造器
-    function Router() {
-        //接受所有的配置路由内容：锚 和 函数方法
-        this.routes = {};
-        //接受 改变后的 hash值
-        this.curUrl = '';
-        //将定义的所有路由和函数方法 传给 routes
-        this.route = function (path, callback) {
-            this.routes[path] = callback || function () {
-            };
-            console.log('routes[path]:' + this.routes[path])
-        };
-        //hash 值改变时触发的 函数方法
-        this.refresh = function () {
-            //获取改变的hash值（url中锚 # 号后面的文本）
-            this.curUrl = location.hash.slice(1) || '/';
-            this.routes[this.curUrl]();
-            console.log('location.hash:' + location.hash);
-            console.log('curUrl:' + this.curUrl);
-            console.log('this.routes[this.curUrl]:' + this.routes[this.curUrl])
-        };
-        //监听load（加载url）、hashchange（hash改变）事件
-        this.init = function () {
-            window.addEventListener('load', this.refresh.bind(this), false);
-            window.addEventListener('hashchange', this.refresh.bind(this), false)
-        }
-    }
 
-    var R = new Router();//使用Router构造器
+<!-- jQuery -->
+<script src="/lib/gentelella/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/lib/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="/lib/gentelella/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="/lib/gentelella/vendors/nprogress/nprogress.js"></script>
+<!-- Chart.js -->
+<script src="/lib/gentelella/vendors/Chart.js/dist/Chart.min.js"></script>
+<!-- gauge.js -->
+<script src="/lib/gentelella/vendors/gauge.js/dist/gauge.min.js"></script>
+<!-- bootstrap-progressbar -->
+<script src="/lib/gentelella/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<!-- iCheck -->
+<script src="/lib/gentelella/vendors/iCheck/icheck.min.js"></script>
+<!-- Skycons -->
+<script src="/lib/gentelella/vendors/skycons/skycons.js"></script>
+<!-- Flot -->
+<script src="/lib/gentelella/vendors/Flot/jquery.flot.js"></script>
+<script src="/lib/gentelella/vendors/Flot/jquery.flot.pie.js"></script>
+<script src="/lib/gentelella/vendors/Flot/jquery.flot.time.js"></script>
+<script src="/lib/gentelella/vendors/Flot/jquery.flot.stack.js"></script>
+<script src="../vendors/Flot/jquery.flot.resize.js"></script>
+<!-- Flot plugins -->
+<script src="/lib/gentelella/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+<script src="/lib/gentelella/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+<script src="/lib/gentelella/vendors/flot.curvedlines/curvedLines.js"></script>
+<!-- DateJS -->
+<script src="/lib/gentelella/vendors/DateJS/build/date.js"></script>
+<!-- JQVMap -->
+<script src="/lib/gentelella/vendors/jqvmap/dist/jquery.vmap.js"></script>
+<script src="/lib/gentelella/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+<script src="/lib/gentelella/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="/lib/gentelella/vendors/moment/min/moment.min.js"></script>
+<script src="/lib/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
-    R.init();//监听时间
+<!-- Custom Theme Scripts -->
+<script src="/lib/gentelella/build/js/custom.min.js"></script>
+<script src="/js/controller.js?v=2.1.4" th:src="@{/js/controller.js}"></script>
+<script type="text/javascript">
+    $().ready(function () {
+        var res = document.getElementById('main');
+        $.ajax({
+            type: "GET",
+            url: "/routers",
+            async:false,
+            success: function (data) {
+                for (var router in data) {
+                    if(router==0){
+                        Router.route('/',function(){
+                            var param = {param: data[0]};
+                            ajaxRequest(param, function (result) {
+                                res.innerHTML = result;
+                            });
+                        });
+                    }
 
-    var res = document.getElementById('result');//读取id为result的元素
-    //定义所有需要用的 路由：hash值 和 加载的内容
-    R.route('/', function () {
-        res.style.background = 'blue';
-        res.innerHTML = '这是首页';
-    })
-    R.route('/product', function () {
-        res.style.background = 'orange';
-        res.innerHTML = '这是产品页';
-    })
-    R.route('/server', function () {
-        res.style.background = 'black';
-        res.innerHTML = '这是服务页';
-    })
+                    Router.routes[data[router]] = function () {
+                        var param = {param: current.curUrl};
+                        ajaxRequest(param, function (result) {
+                            res.innerHTML = result;
+                        });
+                    }
+                }
+            }
+        })
+    });
+
 </script>
 </body>
 </html>

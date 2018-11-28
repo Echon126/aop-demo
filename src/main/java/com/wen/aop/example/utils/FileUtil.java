@@ -1,6 +1,6 @@
 package com.wen.aop.example.utils;
 
-import com.wen.aop.example.entity.RemoteDate;
+import com.wen.aop.example.data.entity.RemoteDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
