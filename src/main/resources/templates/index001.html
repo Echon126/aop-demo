@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>js原生页面hash路由</title>
+    <style>
+        ul {
+            float: left;
+            width: 200px;
+        }
+
+        li {
+            list-style: none;
+            padding: 8px 15px;
+            background: #B9CBF7;
+            text-align: center;
+        }
+
+        a {
+            color: #86FF00;
+        }
+
+        #result {
+            height: 200px;
+            margin-left: 200px;
+            line-height: 200px;
+            font-size: 30px;
+            text-align: center;
+            color: #D64BD3;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <ul>
+        <li><a href="#/index/main">首页</a></li>
+        <li><a href="#/product/main">产品</a></li>
+        <li><a href="#/server/main">服务</a></li>
+    </ul>
+    <div id="result"></div>
+</div>
+<!-- 全局js -->
+<script src="/lib/jQuery/jquery.min.js?v=2.1.4" th:src="@{/lib/jQuery/jquery.min.js}"></script>
+<script src="/js/controller.js?v=2.1.4" th:src="@{/js/controller.js}"></script>
+<script type="text/javascript">
+    $().ready(function () {
+        var res = document.getElementById('result');
+        $.ajax({
+            type: "GET",
+            url: "/routers",
+            async:false,
+            success: function (data) {
+                for (var router in data) {
+                    Router.routes[data[router]] = function () {
+                        var param = {param: current.curUrl};
+                        ajaxRequest(param, function (result) {
+                            res.innerHTML = result;
+                        });
+                    }
+                }
+            }
+        })
+    });
+
+</script>
+</body>
+</html>
