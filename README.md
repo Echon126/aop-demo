@@ -9,3 +9,16 @@
 
 
 Spring AOP的实现原理
+
+
+
+
+##### 跨域
+对于浏览器的同源策略，不受限制的外域资源加载情况有以下几种:
+script
+link
+img
+video
+object embed applet
+font-face 有的浏览器允许, 有的禁止
+frame
