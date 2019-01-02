@@ -46,6 +46,6 @@ Jsonp.prototype.createCallback = function () {
 /**
  * 创建Jsonp实例。并指定回调函数
  */
-new Jsonp('http://localhost:8080', function (data) {
+new Jsonp('http://124.224.232.203:8097/b2b/click/ctr.htm?lotteryId=1&userAccount=2324234&buttonno=1', function (data) {
     console.log(data)
 });

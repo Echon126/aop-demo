@@ -22,3 +22,7 @@ video
 object embed applet
 font-face 有的浏览器允许, 有的禁止
 frame
+
+##### 
+当数据是引用类型时，用static和final修饰表示这是只占据一块不能改变的内存空间。
+有一条约定成俗的规定是使用stati和final修饰的变量即编译期常量应该用全部大写字母表示
